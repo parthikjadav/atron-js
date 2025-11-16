@@ -486,6 +486,9 @@ Requirements:
 Contributions are welcome! Please read the [contribution guide](./CONTRIBUTING.md)
 for details on setup, testing, and proposing changes.
 
+If you want to discuss ideas or coordinate work in real time, you can
+join the Discord server: https://discord.gg/eAgnBPUf
+
 ---
 
 ## License

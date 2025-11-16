@@ -96,22 +96,11 @@ You do not need to follow a strict convention, but consistency helps when scanni
 
 ---
 
-## Releases
+## Community
 
-Releases are handled by the maintainer. In general:
+If you would like to discuss ideas, ask questions, or coordinate work with
+maintainers and other contributors, you can join the Discord server:
 
-1. Bump the version in `package.json`.
-2. Run tests and build:
+https://discord.gg/eAgnBPUf
 
-   ```bash
-   npm test
-   npm run build
-   ```
-
-3. Publish to npm:
-
-   ```bash
-   npm publish
-   ```
-
-If you are not a maintainer, you do not need to worry about publishing; just make sure your changes are well tested and documented.
+just make sure your changes are well tested and documented.
