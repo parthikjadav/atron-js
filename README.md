@@ -206,6 +206,120 @@ const groups = batch([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 
 ---
 
+### Logging helpers
+
+#### `success(message: string): void`
+
+Log a green checkmark with the message. Useful for positive status updates.
+
+```ts
+import { success } from "atron-js";
+
+success("Deployment finished");
+// ✔ Deployment finished
+```
+
+#### `error(message: string): void`
+
+Log a bold red error with a leading "✖". Does **not** throw; only logs.
+
+```ts
+import { error } from "atron-js";
+
+error("Failed to connect to database");
+// ✖ Failed to connect to database
+```
+
+#### `warning(message: string): void`
+
+Log a yellow warning with a "⚠ Warning:" prefix.
+
+```ts
+import { warning } from "atron-js";
+
+warning("Using default configuration");
+// ⚠ Warning: Using default configuration
+```
+
+#### `info(message: string): void`
+
+Log an informational message with a blue "ℹ Info:" prefix.
+
+```ts
+import { info } from "atron-js";
+
+info("Server listening on port 3000");
+// ℹ Info: Server listening on port 3000
+```
+
+#### `debug(message: string): void`
+
+Log a dim gray debug message with a "🐞 Debug:" prefix. Only logs when
+`NODE_ENV` is **not** `"production"`.
+
+```ts
+import { debug } from "atron-js";
+
+debug("Got payload: " + JSON.stringify(payload));
+// 🐞 Debug: Got payload ... (only when NODE_ENV !== "production")
+```
+
+#### `title(message: string): void`
+
+Print a bold, underlined cyan title to separate sections.
+
+```ts
+import { title } from "atron-js";
+
+title("Build Summary");
+```
+
+#### `box(message: string): void`
+
+Wrap a message (optionally multi-line) in an ASCII box, colored magenta.
+
+```ts
+import { box } from "atron-js";
+
+box("Deployment complete\nAll services healthy");
+```
+
+#### `banner(text: string): void`
+
+Print a simple uppercase banner framed by `=` characters in bright green.
+
+```ts
+import { banner } from "atron-js";
+
+banner("ATRON JS");
+```
+
+#### `timestamp(message: string): void`
+
+Log a message prefixed with a `[HH:MM:SS]` timestamp.
+
+```ts
+import { timestamp } from "atron-js";
+
+timestamp("Job finished");
+// [12:34:56] Job finished
+```
+
+#### `logJSON(obj: unknown): void`
+
+Pretty-print JSON with basic coloring:
+- Keys yellow
+- Strings green
+- Numbers/booleans cyan
+
+```ts
+import { logJSON } from "atron-js";
+
+logJSON({ id: 1, name: "Atron", active: true });
+```
+
+---
+
 ### Strings
 
 #### `capitalize(text: string): string`

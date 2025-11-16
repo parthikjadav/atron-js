@@ -3,6 +3,16 @@ export * from "./utils/numbers";
 export * from "./utils/time";
 export * from "./handlers/tryCatch";
 export * from "./fetch";
+export * from "./log/success";
+export * from "./log/error";
+export * from "./log/warning";
+export * from "./log/info";
+export * from "./log/debug";
+export * from "./log/title";
+export * from "./log/box";
+export * from "./log/banner";
+export * from "./log/timestamp";
+export * from "./log/logJSON";
 
 export type { JSONValue, GetJSONOptions, PostJSONOptions } from "./types/fetch";
 export type { TryCatchResult } from "./types/handlers";
