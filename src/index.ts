@@ -1,5 +1,6 @@
 export * from "./utils/strings";
 export * from "./utils/numbers";
+export * from "./utils/arrays";
 export * from "./utils/time";
 export * from "./handlers/tryCatch";
 export * from "./fetch";
