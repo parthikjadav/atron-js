@@ -116,6 +116,134 @@ if (err) {
 }
 ```
 
+
+### Arrays
+
+#### `unique<T>(arr: T[]): T[]`
+
+Returns a new array with duplicate values removed.
+
+```ts
+unique([1, 2, 2, 3, 3, 3]);     // [1, 2, 3]
+unique(["a", "b", "a", "c"]);   // ["a", "b", "c"]
+unique([]);                     // []
+```
+
+**How it works:**
+- Uses `Set` to efficiently remove duplicates while preserving order.
+
+---
+
+#### `chunk<T>(arr: T[], size: number): T[][]`
+
+Splits an array into smaller fixed-size groups.
+
+```ts
+chunk([1, 2, 3, 4, 5], 2);      // [[1, 2], [3, 4], [5]]
+chunk([1, 2, 3, 4], 2);         // [[1, 2], [3, 4]]
+chunk([1, 2, 3], 5);            // [[1, 2, 3]]
+```
+
+**How it works:**
+- The last chunk may contain fewer elements if the array length is not evenly divisible by the chunk size.
+
+---
+
+#### `shuffle<T>(arr: T[]): T[]`
+
+Randomizes the order of elements in the array.
+
+```ts
+shuffle([1, 2, 3, 4]);          // e.g. [3, 1, 4, 2]
+shuffle(["a", "b", "c"]);        // e.g. ["c", "a", "b"]
+```
+
+**How it works:**
+- Uses the Fisher-Yates shuffle algorithm to ensure uniform distribution.
+- Returns a new array without modifying the original.
+
+---
+
+#### `flatten<T>(arr: any[]): T[]`
+
+Flattens nested arrays of any depth into a single-level array.
+
+```ts
+flatten([1, [2, [3, 4]]]);      // [1, 2, 3, 4]
+flatten([[1, 2], [3, 4]]);      // [1, 2, 3, 4]
+flatten([1, 2, 3]);             // [1, 2, 3]
+```
+
+**How it works:**
+- Recursively flattens all nested arrays regardless of nesting depth.
+
+---
+
+### Objects
+
+#### `deepClone<T>(value: T): T`
+
+Creates a deep copy of a value, supporting nested arrays, plain objects, `Date`, and `RegExp`.
+
+```ts
+import { deepClone } from "atron-js";
+
+const original = { user: { id: 1 }, date: new Date() };
+const copy = deepClone(original);
+
+console.log(original === copy); // false
+console.log(original.user === copy.user); // false (nested object is new instance)
+````
+
+**Caveats:**
+
+  - **Circular references** are not supported.
+  - Complex types like `Map`, `Set`, or functions are not cloned (they are copied by reference or ignored).
+
+-----
+
+#### `deepEqual(a: unknown, b: unknown): boolean`
+
+Checks if two values are deeply equal in structure and value. Supports nested objects, arrays, `Date`, and `RegExp`.
+
+```ts
+import { deepEqual } from "atron-js";
+
+deepEqual({ a: [1, 2] }, { a: [1, 2] }); // true
+deepEqual(new Date("2023-01-01"), new Date("2023-01-01")); // true
+deepEqual({ x: 1 }, { x: 2 }); // false
+```
+
+---
+
+### Functions
+
+#### `memoize<T>(fn: T, options?: { ttlMs?: number }): T`
+
+Wraps a function to cache its results based on the arguments provided. Useful for expensive calculations or repetitive lookups.
+
+```ts
+import { memoize } from "atron-js";
+
+// Basic usage
+const heavyCalc = (num: number) => {
+  console.log("Computing...");
+  return num * 2;
+};
+const cachedCalc = memoize(heavyCalc);
+
+cachedCalc(5); // Logs "Computing...", returns 10
+cachedCalc(5); // Returns 10 (no log)
+
+// Usage with Time-To-Live (TTL)
+const fetchStatus = memoize(async () => {
+  return await getJSON("/status");
+}, { ttlMs: 5000 }); // Cache expires after 5 seconds
+
+**Caveats:**
+- Uses `JSON.stringify` internally to generate cache keys. This means `{ a: 1, b: 2 }` and `{ b: 2, a: 1 }` might be treated as different keys depending on JS engine key ordering, though usually consistent for simple objects.
+- Not suitable for functions taking arguments that cannot be JSON stringified (like Functions or circular objects).
+
 ---
 
 ### Fetch helpers
@@ -427,68 +555,6 @@ clamp(15, 0, 10);              // 10 (clamped down)
 
 **How it works:**
 - First takes `Math.max(num, min)`, then `Math.min(result, max)`.
-
----
-
-### Arrays
-
-#### `unique<T>(arr: T[]): T[]`
-
-Returns a new array with duplicate values removed.
-
-```ts
-unique([1, 2, 2, 3, 3, 3]);     // [1, 2, 3]
-unique(["a", "b", "a", "c"]);   // ["a", "b", "c"]
-unique([]);                     // []
-```
-
-**How it works:**
-- Uses `Set` to efficiently remove duplicates while preserving order.
-
----
-
-#### `chunk<T>(arr: T[], size: number): T[][]`
-
-Splits an array into smaller fixed-size groups.
-
-```ts
-chunk([1, 2, 3, 4, 5], 2);      // [[1, 2], [3, 4], [5]]
-chunk([1, 2, 3, 4], 2);         // [[1, 2], [3, 4]]
-chunk([1, 2, 3], 5);            // [[1, 2, 3]]
-```
-
-**How it works:**
-- The last chunk may contain fewer elements if the array length is not evenly divisible by the chunk size.
-
----
-
-#### `shuffle<T>(arr: T[]): T[]`
-
-Randomizes the order of elements in the array.
-
-```ts
-shuffle([1, 2, 3, 4]);          // e.g. [3, 1, 4, 2]
-shuffle(["a", "b", "c"]);        // e.g. ["c", "a", "b"]
-```
-
-**How it works:**
-- Uses the Fisher-Yates shuffle algorithm to ensure uniform distribution.
-- Returns a new array without modifying the original.
-
----
-
-#### `flatten<T>(arr: any[]): T[]`
-
-Flattens nested arrays of any depth into a single-level array.
-
-```ts
-flatten([1, [2, [3, 4]]]);      // [1, 2, 3, 4]
-flatten([[1, 2], [3, 4]]);      // [1, 2, 3, 4]
-flatten([1, 2, 3]);             // [1, 2, 3]
-```
-
-**How it works:**
-- Recursively flattens all nested arrays regardless of nesting depth.
 
 ---
 
