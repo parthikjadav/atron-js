@@ -1,11 +1,9 @@
-import chalk from "chalk";
-
 /**
  * Pretty-print a JavaScript value as colored JSON.
  *
- * - Object keys are yellow.
- * - String values are green.
- * - Numeric and boolean values are cyan.
+ * - Object keys are quoted.
+ * - String values are JSON-encoded.
+ * - Numeric and boolean values are printed as-is.
  * - Indentation is two spaces per level.
  *
  * Example
@@ -35,7 +33,7 @@ function formatJSON(value: unknown, indent: number): string {
     if (entries.length === 0) return "{}";
 
     const lines = entries.map(([key, val], index) => {
-      const formattedKey = chalk.yellow(JSON.stringify(key));
+      const formattedKey = JSON.stringify(key);
       const formattedVal = formatJSON(val, indent + 1);
       const comma = index < entries.length - 1 ? "," : "";
       return `${pad}  ${formattedKey}: ${formattedVal}${comma}`;
@@ -46,15 +44,15 @@ function formatJSON(value: unknown, indent: number): string {
 
   switch (typeof value) {
     case "string":
-      return chalk.green(JSON.stringify(value));
+      return JSON.stringify(value);
     case "number":
     case "bigint":
-      return chalk.cyan(String(value));
+      return String(value);
     case "boolean":
-      return chalk.cyan(String(value));
+      return String(value);
     case "undefined":
-      return chalk.cyan("null");
+      return "null";
     default:
-      return chalk.cyan(String(value));
+      return String(value);
   }
 }

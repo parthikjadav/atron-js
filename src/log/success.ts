@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log a green success message with a leading checkmark.
  *
@@ -17,5 +15,5 @@ import chalk from "chalk";
  * @param message - The success message to display after the checkmark.
  */
 export function success(message: string): void {
-  console.log(chalk.green(`✔ ${message}`));
+  console.log(`✔ ${message}`);
 }

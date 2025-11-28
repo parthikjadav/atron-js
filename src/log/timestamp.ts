@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log a message with a leading timestamp in `[HH:MM:SS]` format.
  *
@@ -23,5 +21,5 @@ export function timestamp(message: string): void {
   const ss = String(now.getSeconds()).padStart(2, "0");
   const time = `${hh}:${mm}:${ss}`;
 
-  console.log(`${chalk.dim(`[${time}]`)} ${chalk.white(message)}`);
+  console.log(`[${time}] ${message}`);
 }

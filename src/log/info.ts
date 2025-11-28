@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log an informational message with a blue "ℹ Info:" prefix.
  *
@@ -14,5 +12,5 @@ import chalk from "chalk";
  * @param message - The informational message to display.
  */
 export function info(message: string): void {
-  console.log(chalk.blue(`ℹ Info: ${message}`));
+  console.log(`ℹ Info: ${message}`);
 }

@@ -347,7 +347,7 @@ const groups = batch([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 
 #### `success(message: string): void`
 
-Log a green checkmark with the message. Useful for positive status updates.
+Log a checkmark with the message. Useful for positive status updates.
 
 ```ts
 import { success } from "atron-js";
@@ -358,7 +358,7 @@ success("Deployment finished");
 
 #### `error(message: string): void`
 
-Log a bold red error with a leading "✖". Does **not** throw; only logs.
+Log an error message with a leading "✖". Does **not** throw; only logs.
 
 ```ts
 import { error } from "atron-js";
@@ -369,7 +369,7 @@ error("Failed to connect to database");
 
 #### `warning(message: string): void`
 
-Log a yellow warning with a "⚠ Warning:" prefix.
+Log a warning with a "⚠ Warning:" prefix.
 
 ```ts
 import { warning } from "atron-js";
@@ -380,7 +380,7 @@ warning("Using default configuration");
 
 #### `info(message: string): void`
 
-Log an informational message with a blue "ℹ Info:" prefix.
+Log an informational message with a "ℹ Info:" prefix.
 
 ```ts
 import { info } from "atron-js";
@@ -391,7 +391,7 @@ info("Server listening on port 3000");
 
 #### `debug(message: string): void`
 
-Log a dim gray debug message with a "🐞 Debug:" prefix. Only logs when
+Log a debug message with a "🐞 Debug:" prefix. Only logs when
 `NODE_ENV` is **not** `"production"`.
 
 ```ts
@@ -403,7 +403,7 @@ debug("Got payload: " + JSON.stringify(payload));
 
 #### `title(message: string): void`
 
-Print a bold, underlined cyan title to separate sections.
+Print a title to separate sections.
 
 ```ts
 import { title } from "atron-js";
@@ -413,7 +413,7 @@ title("Build Summary");
 
 #### `box(message: string): void`
 
-Wrap a message (optionally multi-line) in an ASCII box, colored magenta.
+Wrap a message (optionally multi-line) in an ASCII box.
 
 ```ts
 import { box } from "atron-js";
@@ -423,7 +423,7 @@ box("Deployment complete\nAll services healthy");
 
 #### `banner(text: string): void`
 
-Print a simple uppercase banner framed by `=` characters in bright green.
+Print a simple uppercase banner framed by `=` characters.
 
 ```ts
 import { banner } from "atron-js";
@@ -444,10 +444,7 @@ timestamp("Job finished");
 
 #### `logJSON(obj: unknown): void`
 
-Pretty-print JSON with basic coloring:
-- Keys yellow
-- Strings green
-- Numbers/booleans cyan
+Pretty-print JSON in a readable multi-line format.
 
 ```ts
 import { logJSON } from "atron-js";

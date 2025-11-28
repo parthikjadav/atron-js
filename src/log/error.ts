@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log a red error message with a leading "✖" prefix.
  *
@@ -11,11 +9,11 @@ import chalk from "chalk";
  * import { error } from "atron-js";
  *
  * error("Failed to connect to server");
- * // ✖ Failed to connect to server (bold red)
+ * // ✖ Failed to connect to server
  * ```
  *
  * @param message - The error message to display.
  */
 export function error(message: string): void {
-  console.log(chalk.red.bold(`✖ ${message}`));
+  console.log(`✖ ${message}`);
 }
