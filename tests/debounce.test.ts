@@ -93,16 +93,38 @@ test("debounce passes parameters correctly", async () => {
 });
 
 
+test("debounce with 0ms behaves as trailing next-tick", async () => {
+  let count = 0;
+  const fn = debounce(() => count++, 0);
+
+  fn();
+  fn();
+
+  assert.strictEqual(count, 0, "Should not fire synchronously");
+
+  await wait(1);
+
+  assert.strictEqual(count, 1, "Should fire once on next tick");
+});
+
 
 test("debounce infers parameter types", () => {
   const original = (x: number, y: string) => `${x}-${y}`;
   const debounced = debounce(original, 10);
 
-  // TS should enforce correct types:
-  // ✔ OK
   debounced(1, "hello");
 
+  // @ts-expect-error
+  debounced("not-a-number", "hello");
 
+  // @ts-expect-error
+  debounced(1, 2);
+
+  // @ts-expect-error
+  debounced(1);
+
+  // @ts-expect-error
+  debounced(1, "hello", true);
 
   assert.ok(true);
 });

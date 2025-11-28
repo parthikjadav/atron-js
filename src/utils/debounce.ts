@@ -26,7 +26,6 @@
  * A debounced function that delays invoking `fn`.
  */
 
-
 export function debounce<T extends (...args: any[]) => any>(
   fn: T,
   ms: number = 0,
@@ -35,39 +34,37 @@ export function debounce<T extends (...args: any[]) => any>(
     trailing?: boolean;
   } = {}
 ): (...args: Parameters<T>) => void {
-
-  let timeout: NodeJS.Timeout | null = null;
+  
+  let timeout: ReturnType<typeof setTimeout> | null = null;
   let lastArgs: Parameters<T> | null = null;
   let leadingCalled = false;
 
   const leading = options.leading ?? false;
-
   const trailing =
     options.trailing !== undefined ? options.trailing : !leading;
 
   return function (...args: Parameters<T>) {
     lastArgs = args;
+    const context = this;
 
     // Leading execution
     if (leading && !leadingCalled) {
-      fn(...args);
+      (fn as Function).apply(context, args);
       leadingCalled = true;
     }
 
-    // Reset previous timer
+    // Reset existing timer
     if (timeout) clearTimeout(timeout);
 
     timeout = setTimeout(() => {
       if (trailing && lastArgs) {
-        fn(...lastArgs);
+        (fn as Function).apply(context, lastArgs);
       }
 
-      // Allow next leading execution
+      // Allow next leading call
       leadingCalled = false;
-
       timeout = null;
       lastArgs = null;
     }, ms);
-    
   };
 }
