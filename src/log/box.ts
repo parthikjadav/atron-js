@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Print a message inside an ASCII box, colored with `chalk.magentaBright`.
  *
@@ -23,5 +21,5 @@ export function box(message: string): void {
   const content = lines.map(line => `| ${line.padEnd(width, " ")} |`);
 
   const output = [top, ...content, bottom].join("\n");
-  console.log(chalk.magentaBright(output));
+  console.log(output);
 }

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { capitalize, reverse, isEmpty } from "../src/index";
+import { capitalize, reverse, isEmpty, camelCase, kebabCase } from "../src/index";
 
 test("capitalize handles various inputs", () => {
   const cases: Array<[string, string]> = [
@@ -68,6 +68,60 @@ test("isEmpty detects empty and non-empty strings", () => {
       isEmpty(input),
       expected,
       `isEmpty(${JSON.stringify(input)}) should be ${expected}`
+    );
+  }
+});
+
+test("camelCase handles various separators and cases", () => {
+  const cases: Array<[string, string]> = [
+    ["hello world", "helloWorld"],
+    ["hello-world", "helloWorld"],
+    ["hello_world", "helloWorld"],
+    ["hello-world_test value", "helloWorldTestValue"],
+    ["--hello-world--", "helloWorld"],
+    ["a__b--c d", "aBcd"],
+    ["ver1-test2", "ver1Test2"],
+    ["héllo wørld", "hélloWørld"],
+    ["alreadyCamel", "alreadyCamel"],
+    ["HELLO WORLD", "helloWorld"],
+    ["hello", "hello"],
+    ["", ""],
+    ["--__..//", ""],
+    ["//hello...world__", "helloWorld"],
+  ];
+
+  for (const [input, expected] of cases) {
+    assert.equal(
+      camelCase(input),
+      expected,
+      `camelCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
+    );
+  }
+});
+
+test("kebabCase converts various inputs to kebab-case", () => {
+  const cases: Array<[string, string]> = [
+    ["hello world", "hello-world"],
+    ["hello_world", "hello-world"],
+    ["hello_world-test value", "hello-world-test-value"],
+    ["helloWorld", "hello-world"],
+    ["HelloWorld", "hello-world"],
+    ["XMLHttpRequest", "xml-http-request"],
+    ["ver1Test2", "ver1-test2"],
+    ["hélloWørld", "héllo-wørld"],
+    ["--hello-world--", "hello-world"],
+    ["", ""],
+    ["----", ""],
+    ["already-kebab-case", "already-kebab-case"],
+    ["he!!o wor@ld", "heo-world"],
+    ["Hello.World_Test-Case", "hello-world-test-case"],
+  ];
+
+  for (const [input, expected] of cases) {
+    assert.equal(
+      kebabCase(input),
+      expected,
+      `kebabCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
     );
   }
 });

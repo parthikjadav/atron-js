@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log a dim debug message with a "🐞 Debug:" prefix.
  *
@@ -18,5 +16,5 @@ import chalk from "chalk";
  */
 export function debug(message: string): void {
   if (process.env.NODE_ENV === "production") return;
-  console.log(chalk.gray.dim(`🐞 Debug: ${message}`));
+  console.log(`🐞 Debug: ${message}`);
 }

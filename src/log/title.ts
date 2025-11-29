@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Print a section title using bold, underlined cyan text.
  *
@@ -15,5 +13,5 @@ import chalk from "chalk";
  * @param message - The title text to display.
  */
 export function title(message: string): void {
-  console.log(chalk.cyan.bold.underline(message));
+  console.log(message);
 }

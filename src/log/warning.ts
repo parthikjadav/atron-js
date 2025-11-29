@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Log a yellow warning message with a "⚠ Warning:" prefix.
  *
@@ -14,5 +12,5 @@ import chalk from "chalk";
  * @param message - The warning message to display.
  */
 export function warning(message: string): void {
-  console.log(chalk.yellow(`⚠ Warning: ${message}`));
+  console.log(`⚠ Warning: ${message}`);
 }

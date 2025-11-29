@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Print a simple ASCII banner for highlighting important messages.
  *
@@ -19,5 +17,5 @@ export function banner(text: string): void {
   const padded = `  ${text.toUpperCase()}  `;
   const border = "=".repeat(padded.length);
   const output = [border, padded, border].join("\n");
-  console.log(chalk.greenBright(output));
+  console.log(output);
 }
