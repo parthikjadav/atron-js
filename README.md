@@ -251,6 +251,7 @@ deepEqual({ x: 1 }, { x: 2 }); // false
 ```
 
 </details>
+
 ### Functions
 
 <details>
@@ -323,6 +324,7 @@ const onDrag = throttle(() => console.log("drag"), 50, { leading: false, trailin
 ```
 
 </details>
+
 ### Fetch helpers
 
 <details>
@@ -437,6 +439,7 @@ const groups = batch([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 ```
 
 </details>
+
 ### Logging helpers
 
 <details>
@@ -575,6 +578,7 @@ logJSON({ id: 1, name: "Atron", active: true });
 ```
 
 </details>
+
 ### Strings
 
 <details>
@@ -683,6 +687,7 @@ toSlug("abcdef ghi", { maxLength: 5 }); // "abcde"
 - `fallback?: string` – value to return if the slug would otherwise be empty (default `""`).
 
 </details>
+
 ### Numbers
 
 <details>
@@ -736,6 +741,7 @@ clamp(15, 0, 10); // 10 (clamped down)
 - First takes `Math.max(num, min)`, then `Math.min(result, max)`.
 
 </details>
+
 ### Time
 
 <details>
