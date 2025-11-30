@@ -5,7 +5,7 @@ Utility toolkit for JavaScript & TypeScript.
 
 ---
 
-[![Join Community](https://github.com/parthikjadav/atron-js/tree/develop/assets/discord.svg)](https://discord.gg/xqgmDXgked)
+[![Join Community](./assets/discord.svg)](https://discord.gg/xqgmDXgked)
 
 ## Features
 
