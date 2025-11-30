@@ -34,7 +34,7 @@ describe("retry", () => {
         calls++;
         throw err;
       }, 3),
-      err
+      err,
     );
     assert.equal(calls, 3);
   });
@@ -43,14 +43,18 @@ describe("retry", () => {
     let calls = 0;
     const start = Date.now();
     await assert.rejects(
-      retry(async () => {
-        calls++;
-        throw new Error("fail");
-      }, 3, 20), // Increased delay slightly to be safe against CI variance
-      /fail/
+      retry(
+        async () => {
+          calls++;
+          throw new Error("fail");
+        },
+        3,
+        20,
+      ), // Increased delay slightly to be safe against CI variance
+      /fail/,
     );
     const elapsed = Date.now() - start;
-    
+
     // 3 attempts means 2 delays (Attempt 1 -> wait -> Attempt 2 -> wait -> Attempt 3)
     // 2 * 20ms = 40ms. We check for >= 30ms to account for slight timer inaccuracies.
     assert.ok(elapsed >= 30, `Elapsed time ${elapsed}ms should be >= 30ms`);
@@ -60,7 +64,7 @@ describe("retry", () => {
   test("throws if attempts is not greater than 0", async () => {
     await assert.rejects(
       retry(async () => 1, 0),
-      /Attempts must be at least 1/
+      /Attempts must be at least 1/,
     );
   });
 });

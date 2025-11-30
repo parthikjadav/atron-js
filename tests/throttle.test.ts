@@ -3,7 +3,7 @@ import assert from "node:assert";
 import { throttle } from "../src";
 
 function wait(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // BASIC: fires at most once per interval
@@ -44,7 +44,6 @@ test("throttle (leading only): fires immediately and not at end", async () => {
   assert.strictEqual(count, 1, "Trailing must NOT fire");
 });
 
-
 // TRAILING MODE ONLY
 
 test("throttle (trailing only): fires at end, not immediately", async () => {
@@ -67,7 +66,6 @@ test("throttle (trailing only): fires at end, not immediately", async () => {
 });
 
 // LEADING + TRAILING COMBINED
-
 
 test("throttle (leading + trailing): fires twice", async () => {
   let count = 0;
@@ -133,19 +131,19 @@ test("throttle infers parameter types", () => {
   thr(1, "hello");
 
   // ✘ wrong first param
-  // @ts-expect-error
+  // @ts-expect-error - wrong type for first parameter
   thr("not-number", "hello");
 
   // ✘ wrong second param
-  // @ts-expect-error
+  // @ts-expect-error - wrong type for second parameter
   thr(1, 2);
 
   // ✘ missing second param
-  // @ts-expect-error
+  // @ts-expect-error - missing second argument
   thr(1);
 
   // ✘ extra argument
-  // @ts-expect-error
+  // @ts-expect-error - extra third argument
   thr(1, "hello", true);
 
   assert.ok(true);

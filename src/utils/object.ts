@@ -9,7 +9,7 @@
  */
 export function deepClone<T>(value: T): T {
   // Handle primitives and null
-  if (value === null || typeof value !== 'object') {
+  if (value === null || typeof value !== "object") {
     return value;
   }
 
@@ -48,7 +48,7 @@ export function deepEqual(a: unknown, b: unknown): boolean {
   if (a === b) return true;
 
   // If either is null or not an object (and didn't pass strict check), they aren't equal
-  if (a === null || b === null || typeof a !== 'object' || typeof b !== 'object') {
+  if (a === null || b === null || typeof a !== "object" || typeof b !== "object") {
     return false;
   }
 
@@ -84,11 +84,11 @@ export function deepEqual(a: unknown, b: unknown): boolean {
 
   for (const key of keysA) {
     if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
-    
+
     // Recursive check
-    if (!deepEqual((a as any)[key], (b as any)[key])) return false;
+    if (!deepEqual((a as Record<string, unknown>)[key], (b as Record<string, unknown>)[key]))
+      return false;
   }
 
   return true;
 }
-

@@ -20,7 +20,7 @@ test("capitalize handles various inputs", () => {
     assert.equal(
       capitalize(input),
       expected,
-      `capitalize(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
+      `capitalize(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`,
     );
   }
 });
@@ -43,7 +43,7 @@ test("reverse reverses many different strings", () => {
     assert.equal(
       reverse(input),
       expected,
-      `reverse(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
+      `reverse(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`,
     );
   }
 });
@@ -67,7 +67,7 @@ test("isEmpty detects empty and non-empty strings", () => {
     assert.equal(
       isEmpty(input),
       expected,
-      `isEmpty(${JSON.stringify(input)}) should be ${expected}`
+      `isEmpty(${JSON.stringify(input)}) should be ${expected}`,
     );
   }
 });
@@ -94,7 +94,7 @@ test("camelCase handles various separators and cases", () => {
     assert.equal(
       camelCase(input),
       expected,
-      `camelCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
+      `camelCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`,
     );
   }
 });
@@ -121,7 +121,7 @@ test("kebabCase converts various inputs to kebab-case", () => {
     assert.equal(
       kebabCase(input),
       expected,
-      `kebabCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`
+      `kebabCase(${JSON.stringify(input)}) should be ${JSON.stringify(expected)}`,
     );
   }
 });

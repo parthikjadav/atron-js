@@ -2,7 +2,7 @@ export * from "./utils/strings";
 export * from "./utils/numbers";
 export * from "./utils/arrays";
 export * from "./utils/object";
-export * from './utils/memoize';
+export * from "./utils/memoize";
 export * from "./utils/debounce";
 export * from "./utils/throttle";
 export * from "./utils/time";

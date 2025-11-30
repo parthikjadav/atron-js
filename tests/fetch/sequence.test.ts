@@ -44,11 +44,11 @@ test("sequence runs only one task at a time", async () => {
   const tasks = Array.from({ length: 20 }, () => async () => {
     active++;
     maxActive = Math.max(maxActive, active);
-    await new Promise<void>(resolve => setTimeout(resolve, 2));
+    await new Promise<void>((resolve) => setTimeout(resolve, 2));
     active--;
     return active;
   });
 
-  await sequence(tasks.map(t => () => t()));
+  await sequence(tasks.map((t) => () => t()));
   assert.equal(maxActive, 1);
 });

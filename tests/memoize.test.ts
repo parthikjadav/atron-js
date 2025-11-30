@@ -1,9 +1,9 @@
-import { test, describe, mock } from 'node:test';
-import assert from 'node:assert/strict';
-import { memoize } from '../src';
+import { test, describe, mock } from "node:test";
+import assert from "node:assert/strict";
+import { memoize } from "../src";
 
-describe('memoize', () => {
-  test('caches result for same arguments', () => {
+describe("memoize", () => {
+  test("caches result for same arguments", () => {
     // Create a mock function to track calls
     const fn = mock.fn((x: number) => x * 2);
     const memoized = memoize(fn);
@@ -21,19 +21,19 @@ describe('memoize', () => {
     assert.strictEqual(fn.mock.callCount(), 2);
   });
 
-  test('handles multiple arguments', () => {
+  test("handles multiple arguments", () => {
     const fn = mock.fn((a: string, b: number) => `${a}-${b}`);
     const memoized = memoize(fn);
 
-    assert.strictEqual(memoized('test', 1), 'test-1');
-    assert.strictEqual(memoized('test', 1), 'test-1');
+    assert.strictEqual(memoized("test", 1), "test-1");
+    assert.strictEqual(memoized("test", 1), "test-1");
     assert.strictEqual(fn.mock.callCount(), 1);
 
-    assert.strictEqual(memoized('test', 2), 'test-2');
+    assert.strictEqual(memoized("test", 2), "test-2");
     assert.strictEqual(fn.mock.callCount(), 2);
   });
 
-  test('respects TTL (Time To Live)', async () => {
+  test("respects TTL (Time To Live)", async () => {
     const fn = mock.fn((x: number) => x * 10);
     // Short TTL for testing
     const memoized = memoize(fn, { ttlMs: 50 });
@@ -54,7 +54,7 @@ describe('memoize', () => {
     assert.strictEqual(fn.mock.callCount(), 2); // Recomputed
   });
 
-  test('caches distinct object references correctly', () => {
+  test("caches distinct object references correctly", () => {
     const fn = mock.fn((obj: { id: number }) => obj.id);
     const memoized = memoize(fn);
 
@@ -63,11 +63,11 @@ describe('memoize', () => {
 
     // Call with objA
     assert.strictEqual(memoized(objA), 1);
-    
+
     // Call with objB (same structure) -> JSON.stringify key matches
     // Note: Default simple JSON strategy treats deep equal objects as cache hits
     assert.strictEqual(memoized(objB), 1);
-    
+
     assert.strictEqual(fn.mock.callCount(), 1);
   });
 });

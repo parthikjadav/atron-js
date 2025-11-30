@@ -22,34 +22,31 @@
  * @param {boolean} [options.leading=false] - Whether to call on the leading edge.
  * @param {boolean} [options.trailing] - Whether to call on the trailing edge.
  *
- * @returns {(...args: Parameters<T>) => void}
+ * @returns {(...args: A) => void}
  * A debounced function that delays invoking `fn`.
  */
 
-export function debounce<T extends (...args: any[]) => any>(
-  fn: T,
+export function debounce<A extends unknown[], R>(
+  fn: (...args: A) => R,
   ms: number = 0,
   options: {
     leading?: boolean;
     trailing?: boolean;
-  } = {}
-): (...args: Parameters<T>) => void {
-  
+  } = {},
+): (...args: A) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  let lastArgs: Parameters<T> | null = null;
+  let lastArgs: A | null = null;
   let leadingCalled = false;
 
   const leading = options.leading ?? false;
-  const trailing =
-    options.trailing !== undefined ? options.trailing : !leading;
+  const trailing = options.trailing !== undefined ? options.trailing : !leading;
 
-  return function (...args: Parameters<T>) {
+  return function (this: unknown, ...args: A) {
     lastArgs = args;
-    const context = this;
 
     // Leading execution
     if (leading && !leadingCalled) {
-      (fn as Function).apply(context, args);
+      (fn as (...a: A) => R).apply(this, args);
       leadingCalled = true;
     }
 
@@ -58,7 +55,7 @@ export function debounce<T extends (...args: any[]) => any>(
 
     timeout = setTimeout(() => {
       if (trailing && lastArgs) {
-        (fn as Function).apply(context, lastArgs);
+        (fn as (...a: A) => R).apply(this, lastArgs);
       }
 
       // Allow next leading call

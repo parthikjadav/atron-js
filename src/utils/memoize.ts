@@ -14,9 +14,9 @@ export interface MemoizeOptions {
  * @param options - Configuration options (e.g., TTL).
  * @returns A new function that caches results.
  */
-export function memoize<T extends (...args: any[]) => any>(
+export function memoize<T extends (...args: unknown[]) => unknown>(
   fn: T,
-  options?: MemoizeOptions
+  options?: MemoizeOptions,
 ): (...args: Parameters<T>) => ReturnType<T> {
   // Cache stores the result and the timestamp of when it was created
   const cache = new Map<string, { value: ReturnType<T>; timestamp: number }>();
@@ -37,7 +37,7 @@ export function memoize<T extends (...args: any[]) => any>(
       }
     }
 
-    const result = fn(...args);
+    const result = fn(...args) as ReturnType<T>;
     cache.set(key, { value: result, timestamp: now });
     return result;
   };

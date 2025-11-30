@@ -4,7 +4,7 @@ import { debounce } from "../src";
 
 /** helper: waits for ms milliseconds */
 function wait(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 test("debounce (trailing): fires once after silence", async () => {
@@ -34,11 +34,7 @@ test("debounce (leading): fires immediately", async () => {
 
   await wait(60);
 
-  assert.strictEqual(
-    count,
-    1,
-    "Trailing should NOT fire when trailing: false"
-  );
+  assert.strictEqual(count, 1, "Trailing should NOT fire when trailing: false");
 });
 
 test("debounce (leading + trailing): fires twice", async () => {
@@ -92,7 +88,6 @@ test("debounce passes parameters correctly", async () => {
   assert.strictEqual(lastValue, 30, "Should receive last argument");
 });
 
-
 test("debounce with 0ms behaves as trailing next-tick", async () => {
   let count = 0;
   const fn = debounce(() => count++, 0);
@@ -107,23 +102,22 @@ test("debounce with 0ms behaves as trailing next-tick", async () => {
   assert.strictEqual(count, 1, "Should fire once on next tick");
 });
 
-
 test("debounce infers parameter types", () => {
   const original = (x: number, y: string) => `${x}-${y}`;
   const debounced = debounce(original, 10);
 
   debounced(1, "hello");
 
-  // @ts-expect-error
+  // @ts-expect-error - wrong param type for x
   debounced("not-a-number", "hello");
 
-  // @ts-expect-error
+  // @ts-expect-error - wrong param type for y
   debounced(1, 2);
 
-  // @ts-expect-error
+  // @ts-expect-error - missing second argument
   debounced(1);
 
-  // @ts-expect-error
+  // @ts-expect-error - extra third argument
   debounced(1, "hello", true);
 
   assert.ok(true);

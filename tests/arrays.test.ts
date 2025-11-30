@@ -11,7 +11,10 @@ test("unique removes duplicate values", () => {
 
 test("chunk splits array into fixed-size groups", () => {
   assert.deepStrictEqual(chunk([1, 2, 3, 4, 5], 2), [[1, 2], [3, 4], [5]]);
-  assert.deepStrictEqual(chunk([1, 2, 3, 4], 2), [[1, 2], [3, 4]]);
+  assert.deepStrictEqual(chunk([1, 2, 3, 4], 2), [
+    [1, 2],
+    [3, 4],
+  ]);
   assert.deepStrictEqual(chunk([1, 2, 3], 5), [[1, 2, 3]]);
   assert.deepStrictEqual(chunk([], 2), []);
   assert.deepStrictEqual(chunk([1, 2, 3], 0), []);
@@ -20,19 +23,19 @@ test("chunk splits array into fixed-size groups", () => {
 test("shuffle randomizes array order", () => {
   const original = [1, 2, 3, 4, 5];
   const shuffled = shuffle(original);
-  
+
   // Should have same length
   assert.strictEqual(shuffled.length, original.length);
-  
+
   // Should contain same elements
   assert.deepStrictEqual(shuffled.sort(), original.sort());
-  
+
   // Original should be unchanged
   assert.deepStrictEqual(original, [1, 2, 3, 4, 5]);
-  
+
   // Empty array
   assert.deepStrictEqual(shuffle([]), []);
-  
+
   // Single element
   assert.deepStrictEqual(shuffle([1]), [1]);
 });
@@ -41,6 +44,12 @@ test("flatten converts nested arrays to single level", () => {
   assert.deepStrictEqual(flatten([1, [2, [3, 4]]]), [1, 2, 3, 4]);
   assert.deepStrictEqual(flatten([1, 2, 3]), [1, 2, 3]);
   assert.deepStrictEqual(flatten([]), []);
-  assert.deepStrictEqual(flatten([[1, 2], [3, 4]]), [1, 2, 3, 4]);
+  assert.deepStrictEqual(
+    flatten([
+      [1, 2],
+      [3, 4],
+    ]),
+    [1, 2, 3, 4],
+  );
   assert.deepStrictEqual(flatten([1, [2, 3], 4, [5, [6, 7]]]), [1, 2, 3, 4, 5, 6, 7]);
 });

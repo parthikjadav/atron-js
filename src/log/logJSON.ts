@@ -24,7 +24,7 @@ function formatJSON(value: unknown, indent: number): string {
 
   if (Array.isArray(value)) {
     if (value.length === 0) return "[]";
-    const items = value.map(item => `${pad}  ${formatJSON(item, indent + 1)}`);
+    const items = value.map((item) => `${pad}  ${formatJSON(item, indent + 1)}`);
     return [`[`, ...items, `${pad}]`].join("\n");
   }
 

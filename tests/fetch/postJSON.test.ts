@@ -18,7 +18,7 @@ interface MockResponseConfig {
  */
 function withRecordingFetch(
   responses: Array<MockResponseConfig>,
-  fn: (records: RecordedRequest[]) => Promise<void>
+  fn: (records: RecordedRequest[]) => Promise<void>,
 ) {
   return async () => {
     const originalFetch = (globalThis as any).fetch;
@@ -41,7 +41,8 @@ function withRecordingFetch(
       // 4. Simulate network delay/race with signal
       if (init?.signal) {
         await new Promise<void>((resolve, reject) => {
-          const abortHandler = () => reject(new DOMException("The operation was aborted", "AbortError"));
+          const abortHandler = () =>
+            reject(new DOMException("The operation was aborted", "AbortError"));
           init.signal!.addEventListener("abort", abortHandler);
           // Resolve immediately in next tick to allow signal to fire if already aborted
           setImmediate(() => {
@@ -66,7 +67,7 @@ function withRecordingFetch(
         },
         async text() {
           return JSON.stringify(body);
-        }
+        },
       } as any;
     };
 
@@ -79,7 +80,6 @@ function withRecordingFetch(
 }
 
 describe("postJSON", () => {
-  
   test(
     "sends JSON body and returns parsed response",
     withRecordingFetch([{ body: { success: true } }], async (records) => {
@@ -95,9 +95,9 @@ describe("postJSON", () => {
       const headers = req.init?.headers as Headers;
       assert.ok(headers instanceof Headers, "Headers should be a Headers object");
       assert.equal(headers.get("Content-Type"), "application/json");
-      
+
       assert.equal(req.init?.body, JSON.stringify({ a: 1 }));
-    })
+    }),
   );
 
   test(
@@ -111,13 +111,7 @@ describe("postJSON", () => {
         { body: { id: 5 } },
       ],
       async (records) => {
-        const bodies = [
-          { a: 1 },
-          { b: "two" },
-          [1, 2, 3],
-          { nested: { x: true } },
-          null,
-        ];
+        const bodies = [{ a: 1 }, { b: "two" }, [1, 2, 3], { nested: { x: true } }, null];
 
         const results: any[] = [];
         for (let i = 0; i < bodies.length; i++) {
@@ -125,27 +119,21 @@ describe("postJSON", () => {
           results.push(res);
         }
 
-        assert.deepEqual(results, [
-          { id: 1 },
-          { id: 2 },
-          { id: 3 },
-          { id: 4 },
-          { id: 5 },
-        ]);
+        assert.deepEqual(results, [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]);
 
         assert.equal(records.length, bodies.length);
         for (let i = 0; i < records.length; i++) {
           const { url, init } = records[i];
           assert.equal(url, `https://example.com/multi/${i}`);
           assert.equal(init?.method, "POST");
-          
+
           const headers = init?.headers as Headers;
           assert.equal(headers.get("Content-Type"), "application/json");
-          
+
           assert.equal(init?.body, JSON.stringify(bodies[i]));
         }
-      }
-    )
+      },
+    ),
   );
 
   test(
@@ -154,13 +142,13 @@ describe("postJSON", () => {
       await postJSON(
         "https://example.com/custom-header",
         { a: 1 },
-        { headers: { "Content-Type": "application/vnd.custom+json" } }
+        { headers: { "Content-Type": "application/vnd.custom+json" } },
       );
 
       const [req] = records;
       const headers = req.init?.headers as Headers;
       assert.equal(headers.get("Content-Type"), "application/vnd.custom+json");
-    })
+    }),
   );
 
   test(
@@ -184,14 +172,13 @@ describe("postJSON", () => {
         try {
           await assert.rejects(
             postJSON("https://example.com/slow-post", { a: 1 }, { timeoutMs: 10 }),
-            /timed out/
+            /timed out/,
           );
         } finally {
           // Restore the recording fetch
           (globalThis as any).fetch = originalFetch;
         }
-      }
-    )
+      },
+    ),
   );
-
 });

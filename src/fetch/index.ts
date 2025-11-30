@@ -1,5 +1,6 @@
 // Fetch and async helpers
-import type { JSONValue, GetJSONOptions, PostJSONOptions } from "../types/fetch";
+import type { GetJSONOptions, PostJSONOptions } from "../types/fetch";
+
 /**
  * Custom error class to provide detailed API failure information.
  */
@@ -8,7 +9,7 @@ export class HttpError extends Error {
     public status: number,
     public statusText: string,
     public url: string,
-    public data?: unknown
+    public data?: unknown,
   ) {
     super(`Request to ${url} failed with status ${status}: ${statusText}`);
     this.name = "HttpError";
@@ -29,16 +30,13 @@ export class HttpError extends Error {
  * @param options - Fetch options plus an optional `timeoutMs`.
  * @returns A promise that resolves with the parsed JSON response.
  */
-export async function getJSON<T = unknown>(
-  url: string,
-  options: GetJSONOptions = {}
-): Promise<T> {
+export async function getJSON<T = unknown>(url: string, options: GetJSONOptions = {}): Promise<T> {
   const { timeoutMs = 10_000, headers, ...fetchOptions } = options;
 
   // 1. Setup AbortController for true cancellation
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
-  
+
   // Merge user signals if they passed one
   if (options.signal) {
     options.signal.addEventListener("abort", () => controller.abort());
@@ -65,9 +63,13 @@ export async function getJSON<T = unknown>(
         errorData = await response.json();
       } catch {
         // If not JSON, try text, otherwise ignore
-        try { errorData = await response.text(); } catch { /* ignore */ }
+        try {
+          errorData = await response.text();
+        } catch {
+          /* ignore */
+        }
       }
-      
+
       throw new HttpError(response.status, response.statusText, url, errorData);
     }
 
@@ -80,7 +82,6 @@ export async function getJSON<T = unknown>(
 
     // 5. Parse JSON
     return (await response.json()) as T;
-
   } catch (error) {
     // Check if this was a timeout abort
     if (error instanceof DOMException && error.name === "AbortError") {
@@ -92,7 +93,6 @@ export async function getJSON<T = unknown>(
     clearTimeout(id);
   }
 }
-
 
 /**
  * Sends a JSON `POST` request and parses the JSON response.
@@ -110,14 +110,14 @@ export async function getJSON<T = unknown>(
 export async function postJSON<TBody = unknown, TResponse = unknown>(
   url: string,
   body: TBody,
-  options: PostJSONOptions = {}
+  options: PostJSONOptions = {},
 ): Promise<TResponse> {
   const { headers, ...rest } = options;
 
   // Use Headers API to robustly merge user headers with defaults.
   // This handles cases where headers are passed as an object, array, or Headers instance.
   const reqHeaders = new Headers(headers);
-  
+
   // Default to application/json, but allow user to override (e.g. for vendor specific types)
   if (!reqHeaders.has("Content-Type")) {
     reqHeaders.set("Content-Type", "application/json");
@@ -144,11 +144,7 @@ export async function postJSON<TBody = unknown, TResponse = unknown>(
  * @returns The result of the first successful attempt.
  * @throws If all attempts fail, rethrows the last encountered error.
  */
-export async function retry<T>(
-  fn: () => Promise<T>,
-  attempts: number,
-  delayMs = 0
-): Promise<T> {
+export async function retry<T>(fn: () => Promise<T>, attempts: number, delayMs = 0): Promise<T> {
   if (attempts < 1) {
     throw new Error(`Attempts must be at least 1, got ${attempts}`);
   }
@@ -160,7 +156,7 @@ export async function retry<T>(
       return await fn();
     } catch (error) {
       lastError = error;
-      
+
       // Don't delay if it was the last attempt
       if (attempt < attempts && delayMs > 0) {
         await new Promise((resolve) => setTimeout(resolve, delayMs));
@@ -187,7 +183,7 @@ export async function retry<T>(
 export function timeout<T>(
   promise: Promise<T>,
   ms: number,
-  message = `Operation timed out after ${ms}ms`
+  message = `Operation timed out after ${ms}ms`,
 ): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     // Create the timer
@@ -204,7 +200,7 @@ export function timeout<T>(
       (error) => {
         clearTimeout(timer);
         reject(error);
-      }
+      },
     );
   });
 }
@@ -227,11 +223,11 @@ export function sleep(ms: number): Promise<void> {
  */
 export async function sequence<T>(tasks: Array<() => Promise<T>>): Promise<T[]> {
   const results = new Array<T>(tasks.length);
-  
+
   for (let i = 0; i < tasks.length; i++) {
     results[i] = await tasks[i]();
   }
-  
+
   return results;
 }
 
@@ -248,10 +244,7 @@ export async function sequence<T>(tasks: Array<() => Promise<T>>): Promise<T[]> 
  * @param limit - Maximum number of concurrent tasks (must be > 0).
  * @returns A promise resolving to an array of results in the original order.
  */
-export function parallel<T>(
-  tasks: Array<() => Promise<T>>,
-  limit = Infinity
-): Promise<T[]> {
+export function parallel<T>(tasks: Array<() => Promise<T>>, limit = Infinity): Promise<T[]> {
   if (limit <= 0) {
     throw new Error(`Limit must be greater than 0, got ${limit}`);
   }
@@ -299,7 +292,7 @@ export function parallel<T>(
               hasRejected = true;
               reject(error);
             }
-          }
+          },
         );
       }
     };
@@ -326,10 +319,10 @@ export function batch<T>(items: T[], size: number): T[][] {
 
   const length = items.length;
 
-   if (length === 0) {
-     return [];
-   }
-  
+  if (length === 0) {
+    return [];
+  }
+
   // Fast path: Single batch
   if (size >= length) {
     return [items.slice()]; // Return a shallow copy to stay consistent

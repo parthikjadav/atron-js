@@ -18,7 +18,7 @@ export function box(message: string): void {
   const horizontal = "-".repeat(width + 2);
   const top = "+" + horizontal + "+";
   const bottom = "+" + horizontal + "+";
-  const content = lines.map(line => `| ${line.padEnd(width, " ")} |`);
+  const content = lines.map((line) => `| ${line.padEnd(width, " ")} |`);
 
   const output = [top, ...content, bottom].join("\n");
   console.log(output);

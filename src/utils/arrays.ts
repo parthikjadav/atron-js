@@ -55,8 +55,14 @@ export function shuffle<T>(arr: T[]): T[] {
  * @param arr - The array to flatten.
  * @returns A new flattened array.
  */
-export function flatten<T>(arr: any[]): T[] {
-  return arr.reduce((acc, val) => 
-    Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), []
-  );
+export function flatten<T>(arr: unknown[]): T[] {
+  const result: T[] = [];
+  for (const val of arr) {
+    if (Array.isArray(val)) {
+      result.push(...flatten<T>(val as unknown[]));
+    } else {
+      result.push(val as T);
+    }
+  }
+  return result;
 }

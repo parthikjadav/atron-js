@@ -19,10 +19,7 @@ test("randomNumber returns values within range for many ranges", () => {
   for (const [min, max] of ranges) {
     for (let i = 0; i < 20; i++) {
       const value = randomNumber(min, max);
-      assert.ok(
-        value >= min && value <= max,
-        `randomNumber(${min}, ${max}) produced ${value}`
-      );
+      assert.ok(value >= min && value <= max, `randomNumber(${min}, ${max}) produced ${value}`);
     }
   }
 });
@@ -42,11 +39,7 @@ test("isEven correctly classifies numbers from -5 to 14", () => {
   ];
 
   for (const [value, expected] of cases) {
-    assert.equal(
-      isEven(value),
-      expected,
-      `isEven(${value}) should be ${expected}`
-    );
+    assert.equal(isEven(value), expected, `isEven(${value}) should be ${expected}`);
   }
 });
 
@@ -68,7 +61,7 @@ test("clamp restricts values to the provided bounds", () => {
     assert.equal(
       clamp(value, min, max),
       expected,
-      `clamp(${value}, ${min}, ${max}) should be ${expected}`
+      `clamp(${value}, ${min}, ${max}) should be ${expected}`,
     );
   }
 });

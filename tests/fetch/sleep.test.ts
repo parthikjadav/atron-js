@@ -11,9 +11,6 @@ test("sleep waits approximately the requested time for many values", async () =>
     const elapsed = Date.now() - start;
     const tolerance = 5; // allow small scheduling differences
 
-    assert.ok(
-      elapsed >= Math.max(0, ms - tolerance),
-      `sleep(${ms}) waited only ${elapsed}ms`
-    );
+    assert.ok(elapsed >= Math.max(0, ms - tolerance), `sleep(${ms}) waited only ${elapsed}ms`);
   }
 });

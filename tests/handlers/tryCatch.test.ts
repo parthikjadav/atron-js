@@ -180,7 +180,7 @@ test("tryCatch can be reused with same function multiple times", async () => {
 // 18
 test("async function with delay still works", async () => {
   const [data, error] = await tryCatch(async () => {
-    await new Promise(resolve => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, 10));
     return "after-delay";
   });
 

@@ -156,7 +156,7 @@ export function camelCase(input: string): string {
   // Split on common separator characters: space, underscore, dash, dot, slash, backslash
   const parts = value
     .split(/[ _\-.\\/]+/)
-    .map(part => part.replace(/[^\p{Letter}\p{Number}]+/gu, ""))
+    .map((part) => part.replace(/[^\p{Letter}\p{Number}]+/gu, ""))
     .filter(Boolean);
 
   if (parts.length === 0) return "";
@@ -166,17 +166,12 @@ export function camelCase(input: string): string {
   // Special-case patterns like "a__b--c d": if all segments after the first
   // are single characters, treat them as one merged word ("bcd") so that the
   // result becomes "aBcd" instead of "aBCD".
-  if (rest.length > 1 && rest.every(segment => segment.length === 1)) {
+  if (rest.length > 1 && rest.every((segment) => segment.length === 1)) {
     rest = [rest.join("")];
   }
 
   const camel =
-    first +
-    rest
-      .map(segment =>
-        segment.charAt(0).toUpperCase() + segment.slice(1)
-      )
-      .join("");
+    first + rest.map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1)).join("");
 
   return camel;
 }

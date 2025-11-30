@@ -18,25 +18,23 @@
  * @returns {(...args: Parameters<T>) => void}
  */
 
-export function throttle<T extends (...args: any[]) => any>(
-  fn: T,
+export function throttle<A extends unknown[], R>(
+  fn: (...args: A) => R,
   ms: number = 0,
   options: {
     leading?: boolean;
     trailing?: boolean;
-  } = {}
-): (...args: Parameters<T>) => void {
-  
+  } = {},
+): (...args: A) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  let lastArgs: Parameters<T> | null = null;
+  let lastArgs: A | null = null;
   let lastCallTime = 0;
 
   const leading = options.leading ?? true;
   const trailing = options.trailing ?? true;
 
-  return function (...args: Parameters<T>) {
+  return function (this: unknown, ...args: A) {
     const now = Date.now();
-    const context = this;
 
     if (!lastCallTime && !leading) {
       lastCallTime = now;
@@ -53,7 +51,7 @@ export function throttle<T extends (...args: any[]) => any>(
       }
 
       lastCallTime = now;
-      (fn as Function).apply(context, args);
+      (fn as (...a: A) => R).apply(this, args);
       return;
     }
 
@@ -64,7 +62,7 @@ export function throttle<T extends (...args: any[]) => any>(
         timeout = null;
 
         if (lastArgs) {
-          (fn as Function).apply(context, lastArgs);
+          (fn as (...a: A) => R).apply(this, lastArgs);
           lastArgs = null;
         }
       }, remaining);
