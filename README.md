@@ -89,8 +89,6 @@ console.log(formatTime(new Date())); // e.g. "14:05"
 
 </details>
 
----
-
 ## Why `atron-js`?
 
 `atron-js` is designed as a small, focused utility library:
@@ -123,7 +121,7 @@ import { ... } from "atron-js";
 ### Error handling
 
 <details>
-<summary>#### `tryCatch<T>(fn: () => Promise<T> | T): Promise<[T | null, unknown]>`</summary>
+<summary><strong><code>tryCatch&lt;T&gt;(fn: () =&gt; Promise&lt;T&gt; | T): Promise&lt;[T | null, unknown]&gt;</code></strong></summary>
 
 Wraps a value-returning or promise-returning function and returns a tuple
 `[data, error]` instead of throwing.
@@ -144,7 +142,7 @@ if (err) {
 ### Arrays
 
 <details>
-<summary>#### `unique<T>(arr: T[]): T[]`</summary>
+<summary><strong><code>unique&lt;T&gt;(arr: T[]): T[]</code></strong></summary>
 
 Returns a new array with duplicate values removed.
 
@@ -161,10 +159,8 @@ unique([]); // []
 - Uses `Set` to efficiently remove duplicates while preserving order.
 </details>
 
----
-
 <details>
-<summary>#### `chunk<T>(arr: T[], size: number): T[][]`</summary>
+<summary><strong><code>chunk&lt;T&gt;(arr: T[], size: number): T[][]</code></strong></summary>
 
 Splits an array into smaller fixed-size groups.
 
@@ -180,10 +176,8 @@ chunk([1, 2, 3], 5); // [[1, 2, 3]]
 
 </details>
 
----
-
 <details>
-<summary>#### `shuffle<T>(arr: T[]): T[]`</summary>
+<summary><strong><code>shuffle&lt;T&gt;(arr: T[]): T[]</code></strong></summary>
 
 Randomizes the order of elements in the array.
 
@@ -199,10 +193,8 @@ shuffle(["a", "b", "c"]); // e.g. ["c", "a", "b"]
 
 </details>
 
----
-
 <details>
-<summary>#### `flatten<T>(arr: any[]): T[]`</summary>
+<summary><strong><code>flatten&lt;T&gt;(arr: any[]): T[]</code></strong></summary>
 
 Flattens nested arrays of any depth into a single-level array.
 
@@ -221,12 +213,10 @@ flatten([1, 2, 3]); // [1, 2, 3]
 
 </details>
 
----
-
 ### Objects
 
 <details>
-<summary>#### `deepClone<T>(value: T): T`</summary>
+<summary><strong><code>deepClone&lt;T&gt;(value: T): T</code></strong></summary>
 
 Creates a deep copy of a value, supporting nested arrays, plain objects, `Date`, and `RegExp`.
 
@@ -247,10 +237,8 @@ console.log(original.user === copy.user); // false (nested object is new instanc
 
 </details>
 
----
-
 <details>
-<summary>#### `deepEqual(a: unknown, b: unknown): boolean`</summary>
+<summary><strong><code>deepEqual(a: unknown, b: unknown): boolean</code></strong></summary>
 
 Checks if two values are deeply equal in structure and value. Supports nested objects, arrays, `Date`, and `RegExp`.
 
@@ -263,13 +251,10 @@ deepEqual({ x: 1 }, { x: 2 }); // false
 ```
 
 </details>
-
----
-
 ### Functions
 
 <details>
-<summary>#### `memoize<T>(fn: T, options?: { ttlMs?: number }): T`</summary>
+<summary><strong><code>memoize&lt;T&gt;(fn: T, options?: { ttlMs?: number }): T</code></strong></summary>
 
 Wraps a function to cache its results based on the arguments provided. Useful for expensive calculations or repetitive lookups.
 
@@ -299,10 +284,8 @@ const fetchStatus = memoize(async () => {
 
 </details>
 
----
-
 <details>
-<summary>#### `debounce<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`</summary>
+<summary><strong><code>debounce&lt;T extends (...args: any[]) =&gt; any&gt;(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters&lt;T&gt;) =&gt; void</code></strong></summary>
 
 Creates a debounced version of a function.
 
@@ -323,10 +306,8 @@ const onScroll = debounce(() => console.log("scroll"), 100, { leading: true, tra
 
 </details>
 
----
-
 <details>
-<summary>#### `throttle<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`</summary>
+<summary><strong><code>throttle&lt;T extends (...args: any[]) =&gt; any&gt;(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters&lt;T&gt;) =&gt; void</code></strong></summary>
 
 Ensures a function runs at most once every `ms` milliseconds.
 
@@ -342,13 +323,10 @@ const onDrag = throttle(() => console.log("drag"), 50, { leading: false, trailin
 ```
 
 </details>
-
----
-
 ### Fetch helpers
 
 <details>
-<summary>#### `getJSON<T>(url: string, options?: GetJSONOptions): Promise<T>`</summary>
+<summary><strong><code>getJSON&lt;T&gt;(url: string, options?: GetJSONOptions): Promise&lt;T&gt;</code></strong></summary>
 
 Fetch JSON from a URL with status checking, content-type validation, and
 optional timeout.
@@ -364,7 +342,7 @@ const user = await getJSON<User>("https://api.example.com/user/1", {
 </details>
 
 <details>
-<summary>#### `postJSON<TBody, TResponse>(url: string, body: TBody, options?: PostJSONOptions): Promise<TResponse>`</summary>
+<summary><strong><code>postJSON&lt;TBody, TResponse&gt;(url: string, body: TBody, options?: PostJSONOptions): Promise&lt;TResponse&gt;</code></strong></summary>
 
 Send a JSON `POST` request and parse the JSON response.
 
@@ -379,7 +357,7 @@ const created = await postJSON("https://api.example.com/users", {
 </details>
 
 <details>
-<summary>#### `retry<T>(fn: () => Promise<T>, attempts: number, delayMs?: number): Promise<T>`</summary>
+<summary><strong><code>retry&lt;T&gt;(fn: () =&gt; Promise&lt;T&gt;, attempts: number, delayMs?: number): Promise&lt;T&gt;</code></strong></summary>
 
 Retry an async function a fixed number of times before failing.
 
@@ -392,7 +370,7 @@ const data = await retry(() => getJSON("https://api.example.com/flaky"), 3, 250)
 </details>
 
 <details>
-<summary>#### `timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>`</summary>
+<summary><strong><code>timeout&lt;T&gt;(promise: Promise&lt;T&gt;, ms: number, message?: string): Promise&lt;T&gt;</code></strong></summary>
 
 Wrap a promise and reject with a timeout error if it takes too long.
 
@@ -405,7 +383,7 @@ const data = await timeout(getJSON("/slow-endpoint"), 2000);
 </details>
 
 <details>
-<summary>#### `sleep(ms: number): Promise<void>`</summary>
+<summary><strong><code>sleep(ms: number): Promise&lt;void&gt;</code></strong></summary>
 
 Sleep for a given number of milliseconds.
 
@@ -418,7 +396,7 @@ await sleep(500);
 </details>
 
 <details>
-<summary>#### `sequence<T>(tasks: Array<() => Promise<T>>): Promise<T[]>`</summary>
+<summary><strong><code>sequence&lt;T&gt;(tasks: Array&lt;() =&gt; Promise&lt;T&gt;&gt;): Promise&lt;T[]&gt;</code></strong></summary>
 
 Run async tasks one-by-one and collect their results.
 
@@ -433,7 +411,7 @@ const results = await sequence(tasks);
 </details>
 
 <details>
-<summary>#### `parallel<T>(tasks: Array<() => Promise<T>>, limit?: number): Promise<T[]>`</summary>
+<summary><strong><code>parallel&lt;T&gt;(tasks: Array&lt;() =&gt; Promise&lt;T&gt;&gt;, limit?: number): Promise&lt;T[]&gt;</code></strong></summary>
 
 Run async tasks in parallel with an optional concurrency limit.
 
@@ -448,7 +426,7 @@ const results = await parallel(tasks, 2); // at most 2 at a time
 </details>
 
 <details>
-<summary>#### `batch<T>(items: T[], size: number): T[][]`</summary>
+<summary><strong><code>batch&lt;T&gt;(items: T[], size: number): T[][]</code></strong></summary>
 
 Split an array into evenly sized batches.
 
@@ -459,13 +437,10 @@ const groups = batch([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 ```
 
 </details>
-
----
-
 ### Logging helpers
 
 <details>
-<summary>#### `success(message: string): void`</summary>
+<summary><strong><code>success(message: string): void</code></strong></summary>
 
 Log a checkmark with the message. Useful for positive status updates.
 
@@ -479,7 +454,7 @@ success("Deployment finished");
 </details>
 
 <details>
-<summary>#### `error(message: string): void`</summary>
+<summary><strong><code>error(message: string): void</code></strong></summary>
 
 Log an error message with a leading "✖". Does **not** throw; only logs.
 
@@ -493,7 +468,7 @@ error("Failed to connect to database");
 </details>
 
 <details>
-<summary>#### `warning(message: string): void`</summary>
+<summary><strong><code>warning(message: string): void</code></strong></summary>
 
 Log a warning with a "⚠ Warning:" prefix.
 
@@ -507,7 +482,7 @@ warning("Using default configuration");
 </details>
 
 <details>
-<summary>#### `info(message: string): void`</summary>
+<summary><strong><code>info(message: string): void</code></strong></summary>
 
 Log an informational message with a "ℹ Info:" prefix.
 
@@ -521,7 +496,7 @@ info("Server listening on port 3000");
 </details>
 
 <details>
-<summary>#### `debug(message: string): void`</summary>
+<summary><strong><code>debug(message: string): void</code></strong></summary>
 
 Log a debug message with a "🐞 Debug:" prefix. Only logs when
 `NODE_ENV` is **not** `"production"`.
@@ -536,7 +511,7 @@ debug("Got payload: " + JSON.stringify(payload));
 </details>
 
 <details>
-<summary>#### `title(message: string): void`</summary>
+<summary><strong><code>title(message: string): void</code></strong></summary>
 
 Print a title to separate sections.
 
@@ -549,7 +524,7 @@ title("Build Summary");
 </details>
 
 <details>
-<summary>#### `box(message: string): void`</summary>
+<summary><strong><code>box(message: string): void</code></strong></summary>
 
 Wrap a message (optionally multi-line) in an ASCII box.
 
@@ -562,7 +537,7 @@ box("Deployment complete\nAll services healthy");
 </details>
 
 <details>
-<summary>#### `banner(text: string): void`</summary>
+<summary><strong><code>banner(text: string): void</code></strong></summary>
 
 Print a simple uppercase banner framed by `=` characters.
 
@@ -575,7 +550,7 @@ banner("ATRON JS");
 </details>
 
 <details>
-<summary>#### `timestamp(message: string): void`</summary>
+<summary><strong><code>timestamp(message: string): void</code></strong></summary>
 
 Log a message prefixed with a `[HH:MM:SS]` timestamp.
 
@@ -589,7 +564,7 @@ timestamp("Job finished");
 </details>
 
 <details>
-<summary>#### `logJSON(obj: unknown): void`</summary>
+<summary><strong><code>logJSON(obj: unknown): void</code></strong></summary>
 
 Pretty-print JSON in a readable multi-line format.
 
@@ -600,13 +575,10 @@ logJSON({ id: 1, name: "Atron", active: true });
 ```
 
 </details>
-
----
-
 ### Strings
 
 <details>
-<summary>#### `capitalize(text: string): string`</summary>
+<summary><strong><code>capitalize(text: string): string</code></strong></summary>
 
 Capitalizes the **first character** of the string. If the string is empty, returns `""`.
 
@@ -623,11 +595,8 @@ capitalize("  space"); // "  space" (leading space is unchanged)
 - Otherwise, it uppercases `text.charAt(0)` and appends the rest of the string.
 
 </details>
-
----
-
 <details>
-<summary>#### `reverse(text: string): string`</summary>
+<summary><strong><code>reverse(text: string): string</code></strong></summary>
 
 Returns a new string with characters in reverse order.
 
@@ -642,11 +611,8 @@ reverse("hello world"); // "dlrow olleh"
 - Splits the string into an array of characters, reverses the array, and joins it back.
 
 </details>
-
----
-
 <details>
-<summary>#### `camelCase(text: string): string`</summary>
+<summary><strong><code>camelCase(text: string): string</code></strong></summary>
 
 Converts a string into camelCase.
 
@@ -658,11 +624,8 @@ camelCase("version-2-update"); // "version2Update"
 ```
 
 </details>
-
----
-
 <details>
-<summary>#### `kebabCase(text: string): string`</summary>
+<summary><strong><code>kebabCase(text: string): string</code></strong></summary>
 
 Converts a string into kebab-case.
 
@@ -675,11 +638,8 @@ kebabCase("--héllo Wørld--"); // "héllo-wørld"
 ```
 
 </details>
-
----
-
 <details>
-<summary>#### `isEmpty(text: string): boolean`</summary>
+<summary><strong><code>isEmpty(text: string): boolean</code></strong></summary>
 
 Checks if a string is **empty** or contains **only whitespace**.
 
@@ -696,11 +656,8 @@ isEmpty("  hello  "); // false
 - If `text` is falsy or `text.trim().length === 0`, it returns `true`.
 
 </details>
-
----
-
 <details>
-<summary>#### `toSlug(text: string, options?: ToSlugOptions): string`</summary>
+<summary><strong><code>toSlug(text: string, options?: ToSlugOptions): string</code></strong></summary>
 
 Convert arbitrary text into a URL/path-friendly slug.
 
@@ -726,13 +683,10 @@ toSlug("abcdef ghi", { maxLength: 5 }); // "abcde"
 - `fallback?: string` – value to return if the slug would otherwise be empty (default `""`).
 
 </details>
-
----
-
 ### Numbers
 
 <details>
-<summary>#### `randomNumber(min: number, max: number): number`</summary>
+<summary><strong><code>randomNumber(min: number, max: number): number</code></strong></summary>
 
 Returns a **random integer** between `min` and `max` (inclusive).
 
@@ -749,11 +703,8 @@ randomNumber(-5, 5); // -5..5
 > Note: This is a simple helper, not cryptographically secure.
 
 </details>
-
----
-
 <details>
-<summary>#### `isEven(num: number): boolean`</summary>
+<summary><strong><code>isEven(num: number): boolean</code></strong></summary>
 
 Returns `true` if the number is even, `false` otherwise.
 
@@ -769,11 +720,8 @@ isEven(-4); // true
 - Uses the remainder operator: `num % 2 === 0`.
 
 </details>
-
----
-
 <details>
-<summary>#### `clamp(num: number, min: number, max: number): number`</summary>
+<summary><strong><code>clamp(num: number, min: number, max: number): number</code></strong></summary>
 
 Restricts a number to stay within the `[min, max]` range.
 
@@ -788,13 +736,10 @@ clamp(15, 0, 10); // 10 (clamped down)
 - First takes `Math.max(num, min)`, then `Math.min(result, max)`.
 
 </details>
-
----
-
 ### Time
 
 <details>
-<summary>#### `delay(ms: number): Promise<void>`</summary>
+<summary><strong><code>delay(ms: number): Promise&lt;void&gt;</code></strong></summary>
 
 "Sleep" for the given number of milliseconds. This is useful in async code, demos, or simple retry loops.
 
@@ -809,11 +754,8 @@ console.log("One second later");
 - Wraps `setTimeout` in a `Promise` that resolves after `ms` milliseconds.
 
 </details>
-
----
-
 <details>
-<summary>#### `formatTime(date: Date): string`</summary>
+<summary><strong><code>formatTime(date: Date): string</code></strong></summary>
 
 Formats a `Date` into a simple 24-hour `"HH:MM"` string using your **local time zone**.
 
