@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { getJSON } from "../../src/fetch";
+import { getJSON } from "../../src";
 
 // --- Mocking Infrastructure ---
 

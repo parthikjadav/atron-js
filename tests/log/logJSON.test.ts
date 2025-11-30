@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { logJSON } from "../../src/log/logJSON";
+import { logJSON } from "../../src";
 
 test("logJSON prints keys and values", () => {
   const originalLog = console.log;

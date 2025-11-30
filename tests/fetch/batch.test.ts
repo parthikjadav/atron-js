@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { batch } from "../../src/fetch";
+import { batch } from "../../src";
 
 describe("batch", () => {
   test("splits arrays into chunks correctly", () => {

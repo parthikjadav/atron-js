@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { capitalize, reverse, isEmpty, camelCase, kebabCase } from "../src/index";
+import { capitalize, reverse, isEmpty, camelCase, kebabCase } from "../src";
 
 test("capitalize handles various inputs", () => {
   const cases: Array<[string, string]> = [

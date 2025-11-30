@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { tryCatch } from "../../src/handlers/tryCatch";
+import { tryCatch } from "../../src";
 
 // 1
 test("sync success returns data and null error", async () => {

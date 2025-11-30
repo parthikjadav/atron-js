@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { delay, formatTime } from "../src/index";
+import { delay, formatTime } from "../src";
 
 test("delay waits approximately the requested time for various values", async () => {
   const cases: number[] = [0, 1, 5, 10, 20, 30, 40, 50, 75, 100];

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { banner } from "../../src/log/banner";
+import { banner } from "../../src";
 
 test("banner prints an uppercase framed banner", () => {
   const originalLog = console.log;

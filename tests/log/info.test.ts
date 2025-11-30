@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { info } from "../../src/log/info";
+import { info } from "../../src";
 
 test("info logs an info prefix", () => {
   const originalLog = console.log;

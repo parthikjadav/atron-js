@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { timestamp } from "../../src/log/timestamp";
+import { timestamp } from "../../src";
 
 test("timestamp prefixes message with time", () => {
   const originalLog = console.log;

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { title } from "../../src/log/title";
+import { title } from "../../src";
 
 test("title logs a highlighted section header", () => {
   const originalLog = console.log;

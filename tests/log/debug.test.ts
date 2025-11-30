@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { debug } from "../../src/log/debug";
+import { debug } from "../../src";
 
 test("debug logs when NODE_ENV is not production", () => {
   const originalLog = console.log;

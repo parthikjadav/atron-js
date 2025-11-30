@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { parallel } from "../../src/fetch";
+import { parallel } from "../../src";
 
 describe("parallel", () => {
   test("resolves all tasks and preserves order", async () => {

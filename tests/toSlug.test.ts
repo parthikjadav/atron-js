@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { toSlug } from "../src/index";
+import { toSlug } from "../src";
 
 const longInput = "Hello world ".repeat(10000);
 
