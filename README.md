@@ -5,7 +5,7 @@ Utility toolkit for JavaScript & TypeScript.
 
 ---
 
-[![Join Community](https://github.com/parthikjadav/atron-js/assets/discord.svg)](https://discord.gg/xqgmDXgked)
+[![Join Community](https://github.com/parthikjadav/atron-js/tree/develop/assets/discord.svg)](https://discord.gg/xqgmDXgked)
 
 ## Features
 
@@ -122,13 +122,11 @@ import { ... } from "atron-js";
 
 ### Error handling
 
-#### `tryCatch<T>(fn: () => Promise<T> | T): Promise<[T | null, unknown]>`
+<details>
+<summary>#### `tryCatch<T>(fn: () => Promise<T> | T): Promise<[T | null, unknown]>`</summary>
 
 Wraps a value-returning or promise-returning function and returns a tuple
 `[data, error]` instead of throwing.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { tryCatch, getJSON } from "atron-js";
@@ -145,12 +143,11 @@ if (err) {
 
 ### Arrays
 
-#### `unique<T>(arr: T[]): T[]`
+<details>
+<summary>#### `unique<T>(arr: T[]): T[]`</summary>
 
 Returns a new array with duplicate values removed.
 
-<details>
-<summary>Examples</summary>
 
 ```ts
 unique([1, 2, 2, 3, 3, 3]); // [1, 2, 3]
@@ -158,20 +155,18 @@ unique(["a", "b", "a", "c"]); // ["a", "b", "c"]
 unique([]); // []
 ```
 
-</details>
 
 **How it works:**
 
 - Uses `Set` to efficiently remove duplicates while preserving order.
+</details>
 
 ---
 
-#### `chunk<T>(arr: T[], size: number): T[][]`
+<details>
+<summary>#### `chunk<T>(arr: T[], size: number): T[][]`</summary>
 
 Splits an array into smaller fixed-size groups.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
@@ -179,41 +174,37 @@ chunk([1, 2, 3, 4], 2); // [[1, 2], [3, 4]]
 chunk([1, 2, 3], 5); // [[1, 2, 3]]
 ```
 
-</details>
-
 **How it works:**
 
 - The last chunk may contain fewer elements if the array length is not evenly divisible by the chunk size.
 
+</details>
+
 ---
 
-#### `shuffle<T>(arr: T[]): T[]`
+<details>
+<summary>#### `shuffle<T>(arr: T[]): T[]`</summary>
 
 Randomizes the order of elements in the array.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 shuffle([1, 2, 3, 4]); // e.g. [3, 1, 4, 2]
 shuffle(["a", "b", "c"]); // e.g. ["c", "a", "b"]
 ```
 
-</details>
-
 **How it works:**
 
 - Uses the Fisher-Yates shuffle algorithm to ensure uniform distribution.
 - Returns a new array without modifying the original.
 
+</details>
+
 ---
 
-#### `flatten<T>(arr: any[]): T[]`
+<details>
+<summary>#### `flatten<T>(arr: any[]): T[]`</summary>
 
 Flattens nested arrays of any depth into a single-level array.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 flatten([1, [2, [3, 4]]]); // [1, 2, 3, 4]
@@ -224,22 +215,20 @@ flatten([
 flatten([1, 2, 3]); // [1, 2, 3]
 ```
 
-</details>
-
 **How it works:**
 
 - Recursively flattens all nested arrays regardless of nesting depth.
+
+</details>
 
 ---
 
 ### Objects
 
-#### `deepClone<T>(value: T): T`
+<details>
+<summary>#### `deepClone<T>(value: T): T`</summary>
 
 Creates a deep copy of a value, supporting nested arrays, plain objects, `Date`, and `RegExp`.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { deepClone } from "atron-js";
@@ -251,21 +240,19 @@ console.log(original === copy); // false
 console.log(original.user === copy.user); // false (nested object is new instance)
 ```
 
-</details>
-
 **Caveats:**
 
 - **Circular references** are not supported.
 - Complex types like `Map`, `Set`, or functions are not cloned (they are copied by reference or ignored).
 
+</details>
+
 ---
 
-#### `deepEqual(a: unknown, b: unknown): boolean`
+<details>
+<summary>#### `deepEqual(a: unknown, b: unknown): boolean`</summary>
 
 Checks if two values are deeply equal in structure and value. Supports nested objects, arrays, `Date`, and `RegExp`.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { deepEqual } from "atron-js";
@@ -281,12 +268,10 @@ deepEqual({ x: 1 }, { x: 2 }); // false
 
 ### Functions
 
-#### `memoize<T>(fn: T, options?: { ttlMs?: number }): T`
+<details>
+<summary>#### `memoize<T>(fn: T, options?: { ttlMs?: number }): T`</summary>
 
 Wraps a function to cache its results based on the arguments provided. Useful for expensive calculations or repetitive lookups.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 import { memoize } from "atron-js";
@@ -307,21 +292,19 @@ const fetchStatus = memoize(async () => {
 }, { ttlMs: 5000 }); // Cache expires after 5 seconds
 ```
 
-</details>
-
 **Caveats:**
 
 - Uses `JSON.stringify` internally to generate cache keys. This means `{ a: 1, b: 2 }` and `{ b: 2, a: 1 }` might be treated as different keys depending on JS engine key ordering, though usually consistent for simple objects.
 - Not suitable for functions taking arguments that cannot be JSON stringified (like Functions or circular objects).
 
+</details>
+
 ---
 
-#### `debounce<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`
+<details>
+<summary>#### `debounce<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`</summary>
 
 Creates a debounced version of a function.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 import { debounce } from "atron-js";
@@ -342,12 +325,10 @@ const onScroll = debounce(() => console.log("scroll"), 100, { leading: true, tra
 
 ---
 
-#### `throttle<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`
+<details>
+<summary>#### `throttle<T extends (...args: any[]) => any>(fn: T, ms?: number, options?: { leading?: boolean; trailing?: boolean; }): (...args: Parameters<T>) => void`</summary>
 
 Ensures a function runs at most once every `ms` milliseconds.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 import { throttle } from "atron-js";
@@ -366,13 +347,11 @@ const onDrag = throttle(() => console.log("drag"), 50, { leading: false, trailin
 
 ### Fetch helpers
 
-#### `getJSON<T>(url: string, options?: GetJSONOptions): Promise<T>`
+<details>
+<summary>#### `getJSON<T>(url: string, options?: GetJSONOptions): Promise<T>`</summary>
 
 Fetch JSON from a URL with status checking, content-type validation, and
 optional timeout.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { getJSON } from "atron-js";
@@ -384,12 +363,10 @@ const user = await getJSON<User>("https://api.example.com/user/1", {
 
 </details>
 
-#### `postJSON<TBody, TResponse>(url: string, body: TBody, options?: PostJSONOptions): Promise<TResponse>`
+<details>
+<summary>#### `postJSON<TBody, TResponse>(url: string, body: TBody, options?: PostJSONOptions): Promise<TResponse>`</summary>
 
 Send a JSON `POST` request and parse the JSON response.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { postJSON } from "atron-js";
@@ -401,12 +378,10 @@ const created = await postJSON("https://api.example.com/users", {
 
 </details>
 
-#### `retry<T>(fn: () => Promise<T>, attempts: number, delayMs?: number): Promise<T>`
+<details>
+<summary>#### `retry<T>(fn: () => Promise<T>, attempts: number, delayMs?: number): Promise<T>`</summary>
 
 Retry an async function a fixed number of times before failing.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { retry, getJSON } from "atron-js";
@@ -416,12 +391,10 @@ const data = await retry(() => getJSON("https://api.example.com/flaky"), 3, 250)
 
 </details>
 
-#### `timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>`
+<details>
+<summary>#### `timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>`</summary>
 
 Wrap a promise and reject with a timeout error if it takes too long.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { timeout, getJSON } from "atron-js";
@@ -431,12 +404,10 @@ const data = await timeout(getJSON("/slow-endpoint"), 2000);
 
 </details>
 
-#### `sleep(ms: number): Promise<void>`
+<details>
+<summary>#### `sleep(ms: number): Promise<void>`</summary>
 
 Sleep for a given number of milliseconds.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { sleep } from "atron-js";
@@ -446,12 +417,10 @@ await sleep(500);
 
 </details>
 
-#### `sequence<T>(tasks: Array<() => Promise<T>>): Promise<T[]>`
+<details>
+<summary>#### `sequence<T>(tasks: Array<() => Promise<T>>): Promise<T[]>`</summary>
 
 Run async tasks one-by-one and collect their results.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { sequence, getJSON } from "atron-js";
@@ -463,12 +432,10 @@ const results = await sequence(tasks);
 
 </details>
 
-#### `parallel<T>(tasks: Array<() => Promise<T>>, limit?: number): Promise<T[]>`
+<details>
+<summary>#### `parallel<T>(tasks: Array<() => Promise<T>>, limit?: number): Promise<T[]>`</summary>
 
 Run async tasks in parallel with an optional concurrency limit.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { parallel, getJSON } from "atron-js";
@@ -480,12 +447,10 @@ const results = await parallel(tasks, 2); // at most 2 at a time
 
 </details>
 
-#### `batch<T>(items: T[], size: number): T[][]`
+<details>
+<summary>#### `batch<T>(items: T[], size: number): T[][]`</summary>
 
 Split an array into evenly sized batches.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { batch } from "atron-js";
@@ -499,12 +464,10 @@ const groups = batch([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
 
 ### Logging helpers
 
-#### `success(message: string): void`
+<details>
+<summary>#### `success(message: string): void`</summary>
 
 Log a checkmark with the message. Useful for positive status updates.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { success } from "atron-js";
@@ -515,12 +478,10 @@ success("Deployment finished");
 
 </details>
 
-#### `error(message: string): void`
+<details>
+<summary>#### `error(message: string): void`</summary>
 
 Log an error message with a leading "✖". Does **not** throw; only logs.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { error } from "atron-js";
@@ -531,12 +492,10 @@ error("Failed to connect to database");
 
 </details>
 
-#### `warning(message: string): void`
+<details>
+<summary>#### `warning(message: string): void`</summary>
 
 Log a warning with a "⚠ Warning:" prefix.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { warning } from "atron-js";
@@ -547,12 +506,10 @@ warning("Using default configuration");
 
 </details>
 
-#### `info(message: string): void`
+<details>
+<summary>#### `info(message: string): void`</summary>
 
 Log an informational message with a "ℹ Info:" prefix.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { info } from "atron-js";
@@ -563,13 +520,11 @@ info("Server listening on port 3000");
 
 </details>
 
-#### `debug(message: string): void`
+<details>
+<summary>#### `debug(message: string): void`</summary>
 
 Log a debug message with a "🐞 Debug:" prefix. Only logs when
 `NODE_ENV` is **not** `"production"`.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { debug } from "atron-js";
@@ -580,12 +535,10 @@ debug("Got payload: " + JSON.stringify(payload));
 
 </details>
 
-#### `title(message: string): void`
+<details>
+<summary>#### `title(message: string): void`</summary>
 
 Print a title to separate sections.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { title } from "atron-js";
@@ -595,12 +548,10 @@ title("Build Summary");
 
 </details>
 
-#### `box(message: string): void`
+<details>
+<summary>#### `box(message: string): void`</summary>
 
 Wrap a message (optionally multi-line) in an ASCII box.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { box } from "atron-js";
@@ -610,12 +561,10 @@ box("Deployment complete\nAll services healthy");
 
 </details>
 
-#### `banner(text: string): void`
+<details>
+<summary>#### `banner(text: string): void`</summary>
 
 Print a simple uppercase banner framed by `=` characters.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { banner } from "atron-js";
@@ -625,12 +574,10 @@ banner("ATRON JS");
 
 </details>
 
-#### `timestamp(message: string): void`
+<details>
+<summary>#### `timestamp(message: string): void`</summary>
 
 Log a message prefixed with a `[HH:MM:SS]` timestamp.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { timestamp } from "atron-js";
@@ -641,12 +588,10 @@ timestamp("Job finished");
 
 </details>
 
-#### `logJSON(obj: unknown): void`
+<details>
+<summary>#### `logJSON(obj: unknown): void`</summary>
 
 Pretty-print JSON in a readable multi-line format.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 import { logJSON } from "atron-js";
@@ -660,12 +605,10 @@ logJSON({ id: 1, name: "Atron", active: true });
 
 ### Strings
 
-#### `capitalize(text: string): string`
+<details>
+<summary>#### `capitalize(text: string): string`</summary>
 
 Capitalizes the **first character** of the string. If the string is empty, returns `""`.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 capitalize("hello"); // "Hello"
@@ -674,21 +617,19 @@ capitalize(""); // ""
 capitalize("  space"); // "  space" (leading space is unchanged)
 ```
 
-</details>
-
 **How it works:**
 
 - If `text` is falsy (empty string), it returns `""`.
 - Otherwise, it uppercases `text.charAt(0)` and appends the rest of the string.
 
+</details>
+
 ---
 
-#### `reverse(text: string): string`
+<details>
+<summary>#### `reverse(text: string): string`</summary>
 
 Returns a new string with characters in reverse order.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 reverse("abc"); // "cba"
@@ -696,20 +637,18 @@ reverse("racecar"); // "racecar"
 reverse("hello world"); // "dlrow olleh"
 ```
 
-</details>
-
 **How it works:**
 
 - Splits the string into an array of characters, reverses the array, and joins it back.
 
+</details>
+
 ---
 
-#### `camelCase(text: string): string`
+<details>
+<summary>#### `camelCase(text: string): string`</summary>
 
 Converts a string into camelCase.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 camelCase("hello world"); // "helloWorld"
@@ -722,12 +661,10 @@ camelCase("version-2-update"); // "version2Update"
 
 ---
 
-#### `kebabCase(text: string): string`
+<details>
+<summary>#### `kebabCase(text: string): string`</summary>
 
 Converts a string into kebab-case.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 kebabCase("hello world"); // "hello-world"
@@ -741,12 +678,10 @@ kebabCase("--héllo Wørld--"); // "héllo-wørld"
 
 ---
 
-#### `isEmpty(text: string): boolean`
+<details>
+<summary>#### `isEmpty(text: string): boolean`</summary>
 
 Checks if a string is **empty** or contains **only whitespace**.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 isEmpty(""); // true
@@ -756,20 +691,18 @@ isEmpty("hello"); // false
 isEmpty("  hello  "); // false
 ```
 
-</details>
-
 **How it works:**
 
 - If `text` is falsy or `text.trim().length === 0`, it returns `true`.
 
+</details>
+
 ---
 
-#### `toSlug(text: string, options?: ToSlugOptions): string`
+<details>
+<summary>#### `toSlug(text: string, options?: ToSlugOptions): string`</summary>
 
 Convert arbitrary text into a URL/path-friendly slug.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 import { toSlug } from "atron-js";
@@ -783,8 +716,6 @@ toSlug("Hello World", { lowercase: false }); // "Hello-World"
 toSlug("abcdef ghi", { maxLength: 5 }); // "abcde"
 ```
 
-</details>
-
 `ToSlugOptions`:
 
 - `separator?: string` – character used between words (default `"-"`).
@@ -794,16 +725,16 @@ toSlug("abcdef ghi", { maxLength: 5 }); // "abcde"
 - `allowUnicode?: boolean` – when `true`, keep non-Latin letters instead of removing them (default `false`).
 - `fallback?: string` – value to return if the slug would otherwise be empty (default `""`).
 
+</details>
+
 ---
 
 ### Numbers
 
-#### `randomNumber(min: number, max: number): number`
+<details>
+<summary>#### `randomNumber(min: number, max: number): number`</summary>
 
 Returns a **random integer** between `min` and `max` (inclusive).
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 randomNumber(1, 6); // 1–6, like a dice roll
@@ -811,22 +742,20 @@ randomNumber(0, 0); // always 0
 randomNumber(-5, 5); // -5..5
 ```
 
-</details>
-
 **How it works:**
 
 - Uses `Math.random()` and `Math.floor()` to map the random value into the `[min, max]` range.
 
 > Note: This is a simple helper, not cryptographically secure.
 
+</details>
+
 ---
 
-#### `isEven(num: number): boolean`
+<details>
+<summary>#### `isEven(num: number): boolean`</summary>
 
 Returns `true` if the number is even, `false` otherwise.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 isEven(2); // true
@@ -835,20 +764,18 @@ isEven(0); // true
 isEven(-4); // true
 ```
 
-</details>
-
 **How it works:**
 
 - Uses the remainder operator: `num % 2 === 0`.
 
+</details>
+
 ---
 
-#### `clamp(num: number, min: number, max: number): number`
+<details>
+<summary>#### `clamp(num: number, min: number, max: number): number`</summary>
 
 Restricts a number to stay within the `[min, max]` range.
-
-<details>
-<summary>Examples</summary>
 
 ```ts
 clamp(5, 0, 10); // 5 (already in range)
@@ -856,22 +783,20 @@ clamp(-5, 0, 10); // 0 (clamped up)
 clamp(15, 0, 10); // 10 (clamped down)
 ```
 
-</details>
-
 **How it works:**
 
 - First takes `Math.max(num, min)`, then `Math.min(result, max)`.
+
+</details>
 
 ---
 
 ### Time
 
-#### `delay(ms: number): Promise<void>`
+<details>
+<summary>#### `delay(ms: number): Promise<void>`</summary>
 
 "Sleep" for the given number of milliseconds. This is useful in async code, demos, or simple retry loops.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 console.log("Start");
@@ -879,33 +804,29 @@ await delay(1000);
 console.log("One second later");
 ```
 
-</details>
-
 **How it works:**
 
 - Wraps `setTimeout` in a `Promise` that resolves after `ms` milliseconds.
 
+</details>
+
 ---
 
-#### `formatTime(date: Date): string`
+<details>
+<summary>#### `formatTime(date: Date): string`</summary>
 
 Formats a `Date` into a simple 24-hour `"HH:MM"` string using your **local time zone**.
-
-<details>
-<summary>Example</summary>
 
 ```ts
 const date = new Date(2020, 0, 1, 14, 5); // 14:05 local time
 formatTime(date); // "14:05"
 ```
 
-</details>
-
 **How it works:**
 
 - Uses `date.toTimeString()` and slices the first 5 characters (`HH:MM`).
 
----
+</details>
 
 ## Project structure
 
