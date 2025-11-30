@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { retry } from "../../src/fetch";
+import { retry } from "../../src";
 
 describe("retry", () => {
   test("succeeds on first attempt", async () => {

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { sequence } from "../../src/fetch";
+import { sequence } from "../../src";
 
 test("sequence runs tasks in order and collects results", async () => {
   const tasks = Array.from({ length: 10 }, (_, i) => () => Promise.resolve(i + 1));

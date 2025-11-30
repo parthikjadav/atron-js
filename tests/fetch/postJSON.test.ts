@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { postJSON } from "../../src/fetch";
+import { postJSON } from "../../src";
 
 interface RecordedRequest {
   url: string;

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { box } from "../../src/log/box";
+import { box } from "../../src";
 
 test("box wraps message in a box", () => {
   const originalLog = console.log;

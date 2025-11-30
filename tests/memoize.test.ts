@@ -1,6 +1,6 @@
 import { test, describe, mock } from 'node:test';
 import assert from 'node:assert/strict';
-import { memoize } from '../src/utils/memoize';
+import { memoize } from '../src';
 
 describe('memoize', () => {
   test('caches result for same arguments', () => {

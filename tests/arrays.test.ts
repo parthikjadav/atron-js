@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { unique, chunk, shuffle, flatten } from "../src/utils/arrays";
+import { unique, chunk, shuffle, flatten } from "../src";
 
 test("unique removes duplicate values", () => {
   assert.deepStrictEqual(unique([1, 2, 2, 3, 3, 3]), [1, 2, 3]);

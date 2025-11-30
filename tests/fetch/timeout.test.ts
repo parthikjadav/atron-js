@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { timeout } from "../../src/fetch";
+import { timeout } from "../../src";
 
 test("timeout resolves underlying promise when it finishes in time", async () => {
   const cases = [0, 1, 5, 10, 20];

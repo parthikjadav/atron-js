@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { debounce } from "../src/utils/debounce.ts";
+import { debounce } from "../src";
 
 /** helper: waits for ms milliseconds */
 function wait(ms: number): Promise<void> {

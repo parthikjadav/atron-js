@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { randomNumber, isEven, clamp } from "../src/index";
+import { randomNumber, isEven, clamp } from "../src";
 
 test("randomNumber returns values within range for many ranges", () => {
   const ranges: Array<[number, number]> = [

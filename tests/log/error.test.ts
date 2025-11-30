@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { error } from "../../src/log/error";
+import { error } from "../../src";
 
 test("error logs a red cross message", () => {
   const originalLog = console.log;

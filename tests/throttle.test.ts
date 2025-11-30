@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { throttle } from "../src/utils/throttle.ts";
+import { throttle } from "../src";
 
 function wait(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));

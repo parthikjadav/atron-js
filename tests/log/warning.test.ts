@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { warning } from "../../src/log/warning";
+import { warning } from "../../src";
 
 test("warning logs a yellow warning prefix", () => {
   const originalLog = console.log;

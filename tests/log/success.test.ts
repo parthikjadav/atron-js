@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { success } from "../../src/log/success";
+import { success } from "../../src";
 
 test("success logs a green checkmark message", () => {
   const originalLog = console.log;
