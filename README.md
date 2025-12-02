@@ -12,6 +12,14 @@ Utility toolkit for JavaScript & TypeScript.
 - **Tiny surface area** – a handful of core utilities instead of a huge API.
 - **Well-tested** – uses Node's built-in test runner with lots of test cases.
 
+## Utilities / Helpers
+
+### safeParseJSON  
+Safely parse untrusted JSON without throwing.
+
+### isType  
+Helper for runtime type checking using TypeScript type guards.
+
 ---
 
 ## Installation
