@@ -24,6 +24,41 @@ Utility toolkit for JavaScript & TypeScript.
 ```bash
 npm install atron-js
 ```
+### Data Safety Helpers
+
+<details>
+<summary><strong><code>safeParseJSON&lt;T = unknown&gt;(jsonString: string): ParseResult&lt;T&gt;</code></strong></summary>
+
+Safely parse JSON without risking runtime crashes. Never throws.
+
+```ts
+type ParseResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: Error };
+
+  Usage
+
+  import { safeParseJSON } from "atron-js";
+
+const result = safeParseJSON(localStorage.getItem("userConfig") || "{}");
+
+if (result.success) {
+  console.log(result.data);
+} else {
+  console.error("Invalid JSON:", result.error);
+}
+
+Behavior
+
+Returns { success: true, data } for valid JSON
+
+Returns { success: false, error } for malformed JSON
+
+Returns an error if input is not a string
+
+Great for external APIs, storage, and untrusted input
+
+</details>
 
 </details>
 
